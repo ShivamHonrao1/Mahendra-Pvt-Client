@@ -1,0 +1,117 @@
+/* ============================================================
+   Mahendra Facility Services — corporate stylesheet
+   Palette drawn from the brand logo: deep petrol teal #00343C
+   with restrained gold #C6A14F accents on warm neutrals.
+   Breakpoint contract: mobile nav switches at 900px — keep in
+   sync with the innerWidth > 900 check in js/script.js.
+   ============================================================ */
+
+:root {
+  /* Brand */
+  --teal: #00343C;        /* logo ground */
+  --teal-hover: #0A4A54;
+  --teal-deep: #002229;   /* footer */
+  --teal-tint: #EEF3F2;   /* light section wash */
+  --gold: #C6A14F;        /* logo gold */
+  --gold-hover: #B18E41;
+  --gold-deep: #96772F;   /* accessible gold for small text on light bg */
+
+  /* Neutrals */
+  --ink: #14211F;
+  --body-c: #46565A;
+  --muted: #71807F;
+  --bg: #FAFAF8;
+  --surface: #FFFFFF;
+  --line: #E3E7E4;
+
+  /* Type */
+  --font-display: "Archivo", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* Misc */
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 2px 10px rgba(20, 33, 31, .06);
+  --shadow-md: 0 10px 30px rgba(20, 33, 31, .1);
+  --container: 1200px;
+}
+
+/* ---------- Reset / base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+/* clip (not hidden): pre-reveal GSAP transforms must never create
+   horizontal scroll — required on BOTH html and body. */
+html, body { overflow-x: clip; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--body-c);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--teal); text-decoration: none; }
+p { margin: 0 0 1em; }
+ul, ol { margin: 0; padding: 0; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0 0 .5em;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+h1 { font-size: clamp(2.15rem, 4.4vw, 3.3rem); }
+h2 { font-size: clamp(1.65rem, 3vw, 2.25rem); }
+h3 { font-size: 1.15rem; font-weight: 600; }
+
+.container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+.section { padding: clamp(64px, 8vw, 108px) 0; }
+
+/* Kicker label — small caps with a gold rule */
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin: 0 0 14px;
+}
+.kicker::before { content: ""; width: 26px; height: 2px; background: var(--gold); }
+
+.section-head { max-width: 680px; margin-bottom: clamp(36px, 5vw, 56px); }
+.section-intro { color: var(--muted); margin-top: 4px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.btn-primary { background: var(--teal); color: #fff; }
+.btn-primary:hover { background: var(--teal-hover); }
+.btn-outline { border-color: rgba(0, 52, 60, .3); color: var(--teal); background: transparent; }
+.btn-outline:hover { border-color: var(--teal); background: rgba(0, 52, 60, .05); }
+.btn-gold { background: var(--gold); color: var(--ink); }
+.btn-gold:hover { background: var(--gold-hover); }
+.btn-outline-light { border-color: rgba(255, 255, 255, .45); color: #fff; background: transparent; }
+.btn-outline-light:hover { border-color: #fff; background: rgba(255, 255, 255, .08); }
