@@ -115,3 +115,50 @@ h3 { font-size: 1.15rem; font-weight: 600; }
 .btn-gold:hover { background: var(--gold-hover); }
 .btn-outline-light { border-color: rgba(255, 255, 255, .45); color: #fff; background: transparent; }
 .btn-outline-light:hover { border-color: #fff; background: rgba(255, 255, 255, .08); }
+
+/* ---------- Top utility bar ---------- */
+.topbar { background: var(--teal-deep); color: rgba(255, 255, 255, .72); font-size: .8rem; }
+.topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 8px; padding-bottom: 8px; }
+.topbar p { margin: 0; }
+.topbar a { color: rgba(255, 255, 255, .88); }
+.topbar a:hover { color: var(--gold); }
+.topbar-contact span { margin: 0 6px; color: rgba(255, 255, 255, .35); }
+
+/* ---------- Header / nav ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.site-header.scrolled { box-shadow: var(--shadow-sm); }
+
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 74px; }
+
+.brand { display: flex; align-items: center; gap: 13px; min-width: 0; }
+.brand-logo { height: 48px; width: 48px; object-fit: cover; border-radius: 9px; flex: none; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.18; min-width: 0; }
+.brand-name { font-family: var(--font-display); font-weight: 700; color: var(--teal); font-size: 1.02rem; letter-spacing: -.01em; white-space: nowrap; }
+.brand-sub { font-size: .66rem; font-weight: 500; color: var(--gold-deep); letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; }
+
+.primary-nav ul { display: flex; align-items: center; gap: 6px; list-style: none; }
+.primary-nav a {
+  display: inline-block;
+  padding: 9px 14px;
+  font-size: .92rem;
+  font-weight: 500;
+  color: var(--ink);
+  border-radius: var(--radius-sm);
+  transition: color .2s, background .2s;
+}
+.primary-nav a:hover { color: var(--teal); background: var(--teal-tint); }
+.primary-nav a.nav-cta { background: var(--gold); color: var(--ink); font-weight: 600; padding: 11px 20px; margin-left: 10px; }
+.primary-nav a.nav-cta:hover { background: var(--gold-hover); color: var(--ink); }
+
+/* Hamburger (hidden on desktop) */
+.nav-toggle { display: none; background: none; border: 0; padding: 10px; cursor: pointer; }
+.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--ink); margin: 5px 0; transition: transform .25s, opacity .2s; }
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
