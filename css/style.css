@@ -162,3 +162,34 @@ h3 { font-size: 1.15rem; font-weight: 600; }
 .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-toggle.open span:nth-child(2) { opacity: 0; }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------- Hero ---------- */
+.hero { background: var(--bg); }
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.04fr .96fr;
+  gap: clamp(40px, 5vw, 72px);
+  align-items: center;
+  padding-top: clamp(56px, 7vw, 96px);
+  padding-bottom: clamp(56px, 7vw, 96px);
+}
+.hero-lead { font-size: 1.08rem; max-width: 54ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin: 28px 0 26px; }
+.hero-registrations { font-size: .82rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 18px; margin: 0; max-width: 54ch; }
+.hero-registrations strong { color: var(--ink); font-weight: 600; }
+
+.hero-media { margin: 0; }
+.hero-media img {
+  width: 100%;
+  height: clamp(320px, 38vw, 460px);
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+.hero-media figcaption {
+  font-size: .82rem;
+  color: var(--muted);
+  margin-top: 12px;
+  padding-left: 12px;
+  border-left: 2px solid var(--gold);
+}
