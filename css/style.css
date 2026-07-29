@@ -272,3 +272,40 @@ h3 { font-size: 1.15rem; font-weight: 600; }
 .comp-card img { width: 52px; height: 52px; object-fit: contain; flex: none; }
 .comp-text h3 { font-size: .92rem; margin: 0 0 2px; }
 .comp-text p { font-size: .78rem; color: var(--muted); margin: 0; letter-spacing: .02em; word-break: break-all; }
+
+/* ---------- Clients ---------- */
+.clients { background: var(--surface); }
+.clients .section-head { margin-left: auto; margin-right: auto; text-align: center; }
+.clients .kicker { justify-content: center; }
+.clients-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 22px; }
+.client-logo {
+  font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; color: var(--ink);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: 26px 48px; background: var(--bg);
+  transition: border-color .25s, color .25s;
+}
+.client-logo:hover { border-color: var(--teal); color: var(--teal); }
+.clients-note { text-align: center; color: var(--muted); font-size: .92rem; max-width: 56ch; margin: 30px auto 0; }
+
+/* ---------- Contact ---------- */
+.contact { background: var(--bg); }
+.contact-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: clamp(28px, 4vw, 44px); align-items: start; }
+
+.contact-info { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(26px, 4vw, 38px); }
+.contact-person { border-bottom: 1px solid var(--line); padding-bottom: 18px; margin-bottom: 22px; }
+.contact-name { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; color: var(--ink); margin: 0; }
+.contact-role { font-size: .8rem; color: var(--gold-deep); letter-spacing: .1em; text-transform: uppercase; margin: 4px 0 0; }
+
+.contact-list { list-style: none; display: grid; gap: 18px; }
+.contact-list li { display: flex; flex-direction: column; gap: 2px; }
+.contact-list a { font-weight: 500; }
+.contact-list a:hover { color: var(--teal-hover); text-decoration: underline; }
+.ci-label { font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+.contact-panel { background: var(--teal); border-radius: var(--radius); padding: clamp(28px, 4vw, 40px); color: rgba(255, 255, 255, .78); }
+.contact-panel h3 { color: #fff; font-size: 1.35rem; }
+.contact-panel p { font-size: .95rem; }
+.contact-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0 20px; }
+.contact-panel-note { font-size: .85rem; margin: 0; color: rgba(255, 255, 255, .6); }
+.contact-panel-note a { color: #fff; font-weight: 600; }
+.contact-panel-note a:hover { color: var(--gold); }
