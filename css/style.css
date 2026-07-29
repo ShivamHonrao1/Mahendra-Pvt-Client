@@ -220,3 +220,30 @@ h3 { font-size: 1.15rem; font-weight: 600; }
 .about-md { margin: 30px 0 0; padding-top: 22px; border-top: 1px solid var(--line); display: flex; flex-direction: column; }
 .about-md-name { font-family: var(--font-display); font-weight: 600; color: var(--ink); font-size: 1.05rem; }
 .about-md-role { font-size: .8rem; color: var(--gold-deep); letter-spacing: .1em; text-transform: uppercase; margin-top: 2px; }
+
+/* ---------- Services ---------- */
+.services { background: var(--bg); }
+.cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+
+.service-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .25s, box-shadow .25s, transform .25s;
+}
+.service-card:hover { border-color: rgba(0, 52, 60, .35); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.service-media img { width: 100%; height: 186px; object-fit: cover; }
+.service-body { padding: 24px 24px 26px; }
+.service-num { font-size: .74rem; font-weight: 600; letter-spacing: .14em; color: var(--gold-deep); }
+.service-body h3 { margin: 8px 0 8px; }
+.service-body p { font-size: .93rem; margin-bottom: 0; }
+
+.chip-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.chip-list li {
+  font-size: .76rem; font-weight: 500; color: var(--teal);
+  border: 1px solid rgba(0, 52, 60, .22); border-radius: 4px; padding: 4px 10px;
+  background: var(--teal-tint);
+}
