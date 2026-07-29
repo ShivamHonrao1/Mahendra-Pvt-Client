@@ -247,3 +247,14 @@ h3 { font-size: 1.15rem; font-weight: 600; }
   border: 1px solid rgba(0, 52, 60, .22); border-radius: 4px; padding: 4px 10px;
   background: var(--teal-tint);
 }
+
+/* ---------- Process ---------- */
+.process { background: var(--surface); }
+.process-grid { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; counter-reset: step; }
+.process-step { border-top: 2px solid var(--teal); padding-top: 20px; }
+.process-num {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 700;
+  color: var(--gold); line-height: 1; display: block; margin-bottom: 12px;
+}
+.process-step h3 { font-size: 1.05rem; }
+.process-step p { font-size: .92rem; margin: 0; }
