@@ -393,3 +393,14 @@ h3 { font-size: 1.15rem; font-weight: 600; }
   .footer-bottom-inner { justify-content: center; text-align: center; }
   .client-logo { padding: 20px 32px; font-size: 1.1rem; }
 }
+
+@media (max-width: 380px) {
+  .hero-actions .btn { width: 100%; }
+  .contact-actions .btn { width: 100%; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
