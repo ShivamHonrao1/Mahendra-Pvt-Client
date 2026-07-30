@@ -98,7 +98,7 @@
         var target = document.querySelector(href);
         if (!target) return;
         e.preventDefault();
-        var offset = 68;
+        var offset = 84; /* sticky header height + breathing room */
         if (lenis) {
           lenis.scrollTo(target, { offset: -offset, duration: 1.2 });
         } else {
