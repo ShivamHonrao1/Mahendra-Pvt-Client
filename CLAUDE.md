@@ -46,6 +46,8 @@ source-material/       original client PDF + business card + goal-prompt.md — 
 - Logo: `assets/images/logo.jpg` — gold "M" wordmark on dark petrol teal (client-supplied, Jul 2026).
 - Palette is drawn from the logo: primary teal `#00343C` (logo ground) · gold accent `#C6A14F` (logo lettering) · darker gold `#96772F` for small text on light backgrounds · deep teal `#002229` (topbar/footer) · warm off-white `#FAFAF8`.
 - Type: **Archivo** for display/headings, **Inter** for body (Google Fonts `<link>`; site still renders acceptably if fonts fail).
+- The look is deliberately corporate/restrained (2026 revamp at client request — "shouldn't look AI-built"): flat colors, 1px borders, small radii, no gradients/orbs/glassmorphism, gold used sparingly (kicker rules, nav CTA, process numbers). Keep the teal/gold palette — the earlier red/navy scheme is retired.
+- Numbers on the site must stay defensible: stats are 7+ years, 6 service lines, 8 registrations, 100% compliance. A fabricated "98.9% client retention" figure was removed — don't reintroduce invented metrics.
 
 ## Asset inventory (assets/images/)
 
