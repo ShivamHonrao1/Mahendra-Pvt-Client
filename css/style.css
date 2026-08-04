@@ -40,6 +40,7 @@
   --shadow-md: 0 14px 40px rgba(6, 26, 30, .14);
   --container: 1200px;
   --header-h: 76px;
+  --topbar-h: 40px;    /* measured rendered height (~39.1px), rounded up */
 }
 
 /* ---------- Reset / base ---------- */
@@ -179,10 +180,15 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
    once scrolled. Nav rules below are direct on-dark styling rather than
    a light-mode default layered under a .site-header override — the two
    have equal or lower specificity than each other and would otherwise
-   fight over color depending on source order. */
+   fight over color depending on source order.
+   The topbar stays in normal flow above the header and scrolls away; the
+   fixed header rests below it (top: var(--topbar-h)) so the two never
+   share the same pixels at scroll 0, then snaps to top:0 once .scrolled
+   is applied (JS toggles it past pageYOffset 40, by which point the
+   ~39px-tall topbar has already scrolled out of view). */
 .site-header {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: var(--topbar-h); left: 0; right: 0;
   z-index: 50;
   height: var(--header-h);
   display: flex;
@@ -192,6 +198,7 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
   transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
 }
 .site-header.scrolled {
+  top: 0;
   background: var(--teal-950);
   border-bottom-color: rgba(242,245,244,.14);
   box-shadow: var(--shadow-sm);
@@ -221,7 +228,7 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 
 /* Hamburger (hidden on desktop) */
 .nav-toggle { display: none; background: none; border: 0; padding: 10px; cursor: pointer; }
-.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--ink); margin: 5px 0; transition: transform .25s, opacity .2s; }
+.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--on-dark); margin: 5px 0; transition: transform .25s, opacity .2s; }
 .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-toggle.open span:nth-child(2) { opacity: 0; }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
