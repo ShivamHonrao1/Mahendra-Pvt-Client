@@ -12,6 +12,16 @@
     window.matchMedia("(prefers-reduced-motion: reduce)").matches) ||
     /[?&]noanim\b/.test(window.location.search);
 
+  // ?noanim can't trigger the CSS @media (prefers-reduced-motion) rules
+  // (it's not a real OS preference), so the .img-reveal curtain would still
+  // run its .85s transition and get caught mid-wipe by a headless capture.
+  // Mirror the reduced-motion state onto <html> as a class the CSS can also
+  // key off, set here (before DOMContentLoaded) so it lands before any
+  // transition-triggering class gets added.
+  if (prefersReduced) {
+    document.documentElement.classList.add("is-reduced-motion");
+  }
+
   var hasGSAP = typeof window.gsap !== "undefined";
   var hasST = hasGSAP && typeof window.ScrollTrigger !== "undefined";
   var hasLenis = typeof window.Lenis !== "undefined";

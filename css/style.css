@@ -537,6 +537,15 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 
+/* Mirrors the block above for the ?noanim screenshot path (see js/script.js) */
+html.is-reduced-motion { scroll-behavior: auto; }
+html.is-reduced-motion *,
+html.is-reduced-motion *::before,
+html.is-reduced-motion *::after {
+  transition-duration: .01ms !important;
+  animation-duration: .01ms !important;
+}
+
 /* ---------- Image curtain reveal ---------- */
 .img-reveal { position: relative; overflow: hidden; }
 .img-reveal img {
@@ -560,3 +569,7 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
   .img-reveal::after { display: none; }
   html { scroll-behavior: auto; }
 }
+
+/* Mirrors the block above for the ?noanim screenshot path (see js/script.js) */
+html.is-reduced-motion .img-reveal img    { transform: none; transition: none; }
+html.is-reduced-motion .img-reveal::after { display: none; }
