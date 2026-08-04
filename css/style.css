@@ -172,7 +172,15 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 .topbar a { color: var(--on-dark-soft); }
 .topbar a:hover { color: var(--gold); }
 .topbar-contact span { margin: 0 6px; color: rgba(255, 255, 255, .35); }
-@media (max-width: 700px) { .topbar-note { display: none; } }
+/* Shed content before the topbar wraps to a second line — its height is
+   relied on as a constant (--topbar-h) by .site-header's resting position.
+   Note goes first (900px, same cutoff as the nav breakpoint so it's never
+   fighting the mobile nav for room); email goes next at the narrow end so
+   the phone number alone always fits. */
+@media (max-width: 900px) { .topbar-note { display: none; } }
+@media (max-width: 480px) {
+  .topbar-contact a[href^="mailto:"], .topbar-contact span { display: none; }
+}
 
 /* ---------- Header / nav ---------- */
 /* Header sits over the hero photo, so it (and the nav it contains) stay
