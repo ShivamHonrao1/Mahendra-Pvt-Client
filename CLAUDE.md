@@ -41,7 +41,7 @@ The hero is capped at `min(92vh, 900px)` so tall-viewport captures work. Headles
 ## Structure
 
 ```
-index.html          single page: topbar, sticky nav, hero (with docked stat bar), about, services, why, process, compliance, clients, CTA band, contact, footer
+index.html          single page: full-width sticky nav, hero (with docked stat bar), about, services, why, process, compliance, clients, CTA band, contact, footer
 css/style.css        all styling — construction-forward design system (Roboto Slab/Inter fonts), teal/gold brand tokens, dark photographic bands, responsive
 js/script.js          Lenis smooth scroll + GSAP ScrollTrigger reveals/parallax/counters, nav, back-to-top, ?noanim override
 js/vendor/            vendored libs: gsap.min.js, ScrollTrigger.min.js, lenis.min.js, lenis.css
@@ -57,6 +57,8 @@ docs/superpowers/      spec-driven-development artifacts (plans/, specs/) from p
 - **History, so this is not re-litigated:** a deliberately flat, restrained corporate design shipped in the 2026 revamp ("shouldn't look AI-built" — flat colors, 1px borders, no gradients, sparing gold). The client rejected it in August 2026 and asked for the treatment used in the sibling `real-estate-agent` project. Do not restore the flat direction without a fresh client instruction.
 - Palette derives from the logo and is not imported from the reference site: `--teal-950 #061A1E` (overlays, bands, footer) · `--teal #00343C` (logo ground) · `--gold #C6A14F` (logo lettering) · `--gold-deep #96772F` (gold text on light) · `--bg #FAFAF8`.
 - Type: **Roboto Slab** display, **Inter** body (Google Fonts `<link>`). Archivo is retired.
+- Layout: one shared `--gutter` (`clamp(20px, 4vw, 64px)`) drives both the full-width header and the capped `.container` (`--container: 1320px`), so the brand and the section content sit on the same left edge until the container hits its cap. The header spans the whole viewport width — brand hard left, "Get a Quote" hard right — at the client's request (August 2026); don't put `.nav-inner` back inside `.container`.
+- There is **no top utility bar**. One existed briefly in the August 2026 rebuild carrying the address, GSTIN, phone and email; the client had it removed because all of that already appears in the contact section and footer. Don't reintroduce it.
 - Numbers on the site must stay defensible: stats are 7+ years, 8 service lines, 8 registrations, 100% compliance. A fabricated "98.9% client retention" figure was removed — don't reintroduce invented metrics.
 
 ## Asset inventory (assets/images/)

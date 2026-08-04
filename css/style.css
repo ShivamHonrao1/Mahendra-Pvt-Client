@@ -38,9 +38,12 @@
   --radius-sm: 4px;
   --shadow-sm: 0 2px 10px rgba(6, 26, 30, .07);
   --shadow-md: 0 14px 40px rgba(6, 26, 30, .14);
-  --container: 1200px;
-  --header-h: 76px;
-  --topbar-h: 40px;    /* measured rendered height (~39.1px), rounded up */
+  --container: 1320px;
+  --header-h: 88px;
+  /* One horizontal gutter for the whole page. The full-width header and the
+     capped .container share it, so the brand and the section content line up
+     on the same left edge until the container hits its max width. */
+  --gutter: clamp(20px, 4vw, 64px);
 }
 
 /* ---------- Reset / base ---------- */
@@ -54,29 +57,32 @@ html, body { overflow-x: clip; }
 body {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.65;
+  font-size: 16.5px;
+  line-height: 1.75;
+  letter-spacing: .002em;
   color: var(--body-c);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 img { max-width: 100%; display: block; }
 a { color: var(--teal); text-decoration: none; }
-p { margin: 0 0 1em; }
+p { margin: 0 0 1.15em; max-width: 68ch; }
 ul, ol { margin: 0; padding: 0; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   color: var(--ink);
-  line-height: 1.12;
-  margin: 0 0 .5em;
+  line-height: 1.18;
+  margin: 0 0 .55em;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
 }
-h1 { font-size: clamp(2.3rem, 5vw, 3.9rem); font-weight: 800; }
+h1 { font-size: clamp(2.3rem, 5vw, 3.9rem); font-weight: 800; line-height: 1.1; }
 h2 { font-size: clamp(1.75rem, 3.2vw, 2.6rem); }
-h3 { font-size: 1.2rem; font-weight: 600; }
+h3 { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.005em; }
 
 /* Gold emphasis inside display headings */
 h1 em, h2 em { font-style: normal; color: var(--gold); }
@@ -85,10 +91,10 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
 
 html { scroll-padding-top: calc(var(--header-h) + 16px); }
 
-.container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
-.section { padding: clamp(64px, 8vw, 108px) 0; }
+.container { max-width: var(--container); margin: 0 auto; padding-inline: var(--gutter); }
+.section { padding: clamp(76px, 9vw, 132px) 0; }
 
-.section-head { max-width: 720px; margin: 0 0 clamp(32px, 4vw, 56px); }
+.section-head { max-width: 760px; margin: 0 0 clamp(40px, 5vw, 68px); }
 .section-head.is-centered { margin-inline: auto; text-align: center; }
 .section-intro { font-size: 1.05rem; }
 
@@ -153,35 +159,6 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
-/* ---------- Top utility bar ---------- */
-.topbar {
-  background: var(--teal-deep);
-  color: var(--on-dark-soft);
-  font-size: .8rem;
-  position: relative;
-  z-index: 60;
-}
-.topbar-inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 8px 24px;
-  padding-block: 9px;
-}
-.topbar p { margin: 0; }
-.topbar a { color: var(--on-dark-soft); }
-.topbar a:hover { color: var(--gold); }
-.topbar-contact span { margin: 0 6px; color: rgba(255, 255, 255, .35); }
-/* Shed content before the topbar wraps to a second line — its height is
-   relied on as a constant (--topbar-h) by .site-header's resting position.
-   Note goes first (900px, same cutoff as the nav breakpoint so it's never
-   fighting the mobile nav for room); email goes next at the narrow end so
-   the phone number alone always fits. */
-@media (max-width: 900px) { .topbar-note { display: none; } }
-@media (max-width: 480px) {
-  .topbar-contact a[href^="mailto:"], .topbar-contact span { display: none; }
-}
-
 /* ---------- Header / nav ---------- */
 /* Header sits over the hero photo, so it (and the nav it contains) stay
    on-dark permanently: transparent while over the photo, solid teal-950
@@ -189,14 +166,12 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
    a light-mode default layered under a .site-header override — the two
    have equal or lower specificity than each other and would otherwise
    fight over color depending on source order.
-   The topbar stays in normal flow above the header and scrolls away; the
-   fixed header rests below it (top: var(--topbar-h)) so the two never
-   share the same pixels at scroll 0, then snaps to top:0 once .scrolled
-   is applied (JS toggles it past pageYOffset 40, by which point the
-   ~39px-tall topbar has already scrolled out of view). */
+   The header spans the full viewport width rather than sitting inside
+   .container: brand hard left, CTA hard right, using the same --gutter as
+   the sections so the brand and the hero headline share a left edge. */
 .site-header {
   position: fixed;
-  top: var(--topbar-h); left: 0; right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 50;
   height: var(--header-h);
   display: flex;
@@ -206,13 +181,20 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
   transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
 }
 .site-header.scrolled {
-  top: 0;
   background: var(--teal-950);
   border-bottom-color: rgba(242,245,244,.14);
   box-shadow: var(--shadow-sm);
 }
 
-.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 74px; }
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(24px, 3vw, 56px);
+  width: 100%;
+  height: var(--header-h);
+  padding-inline: var(--gutter);
+}
 
 .brand { display: flex; align-items: center; gap: 13px; min-width: 0; }
 .brand-logo { height: 48px; width: 48px; object-fit: cover; border-radius: 9px; flex: none; }
@@ -249,7 +231,11 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
   justify-content: flex-end;
   padding-top: calc(var(--header-h) + 72px);
 }
-.hero-inner { padding-bottom: clamp(48px, 7vw, 96px); }
+/* width:100% is load-bearing — .hero is a column flex container, and
+   .container's `margin: 0 auto` would otherwise shrink this item to its
+   content width and centre it, pushing the headline off the page's left
+   edge and out of line with the brand in the header. */
+.hero-inner { width: 100%; padding-bottom: clamp(48px, 7vw, 96px); }
 .hero-copy { max-width: 780px; }
 .hero-copy h1 { margin-bottom: 22px; }
 .hero-lead {
@@ -692,7 +678,6 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 }
 
 @media (max-width: 640px) {
-  .topbar-inner { justify-content: center; }
   .brand-name { font-size: .92rem; }
   .brand-sub { display: none; }
   .footer-bottom-inner { justify-content: center; text-align: center; }
