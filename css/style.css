@@ -422,6 +422,28 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 @media (max-width: 1100px) { .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px)  { .services-grid { grid-template-columns: 1fr; } }
 
+/* ---------- Why us ---------- */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+}
+.why-item { border-top: 2px solid rgba(198,161,79,.5); padding-top: 22px; }
+.why-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.why-item h3 { color: var(--on-dark); margin-bottom: 8px; }
+.why-item p  { color: var(--on-dark-soft); font-size: .94rem; margin-bottom: 0; }
+
+@media (max-width: 900px) { .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .why-grid { grid-template-columns: 1fr; } }
+
 /* ---------- Process ---------- */
 .process { background: var(--surface); }
 .process-grid { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; counter-reset: step; }
