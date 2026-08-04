@@ -302,19 +302,53 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 
 /* ---------- About ---------- */
 .about { background: var(--surface); }
-.about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(40px, 6vw, 80px); align-items: center; }
-.about-media img { border-radius: var(--radius); border: 1px solid var(--line); width: 100%; height: 100%; min-height: 340px; object-fit: cover; }
-
-.about-points { list-style: none; margin: 22px 0 0; display: grid; gap: 12px; }
-.about-points li { position: relative; padding-left: 24px; color: var(--ink); font-weight: 500; font-size: .97rem; }
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+.about-media { border-radius: var(--radius); }
+.about-media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.about-copy h2 { margin-bottom: 20px; }
+.about-points { margin: 26px 0; display: grid; gap: 12px; }
+.about-points li {
+  position: relative;
+  padding-left: 30px;
+  list-style: none;
+  color: var(--body-c);
+}
 .about-points li::before {
-  content: ""; position: absolute; left: 0; top: .52em; width: 9px; height: 9px;
+  content: "";
+  position: absolute;
+  left: 0; top: .62em;
+  width: 16px; height: 2px;
   background: var(--gold);
 }
+.about-md {
+  margin: 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.about-md-name {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+.about-md-role {
+  display: block;
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
 
-.about-md { margin: 30px 0 0; padding-top: 22px; border-top: 1px solid var(--line); display: flex; flex-direction: column; }
-.about-md-name { font-family: var(--font-display); font-weight: 600; color: var(--ink); font-size: 1.05rem; }
-.about-md-role { font-size: .8rem; color: var(--gold-deep); letter-spacing: .1em; text-transform: uppercase; margin-top: 2px; }
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-media img { aspect-ratio: 3 / 2; }
+}
 
 /* ---------- Services ---------- */
 .services { background: var(--bg); }
@@ -470,8 +504,6 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 }
 
 @media (max-width: 860px) {
-  .about-grid { grid-template-columns: 1fr; }
-  .about-media img { min-height: 0; height: 300px; }
   .contact-grid { grid-template-columns: 1fr; }
 }
 
