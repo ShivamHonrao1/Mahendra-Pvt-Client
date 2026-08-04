@@ -562,11 +562,12 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 .contact { background: var(--bg); }
 .contact-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
-  gap: clamp(28px, 4vw, 56px);
-  align-items: start;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+  gap: clamp(28px, 3vw, 44px);
+  align-items: stretch;
 }
-.contact-person { margin-bottom: 26px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+.contact-info { display: flex; flex-direction: column; }
+.contact-person { margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
 .contact-name {
   font-family: var(--font-display);
   font-size: 1.2rem;
@@ -581,31 +582,68 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
   text-transform: uppercase;
   color: var(--gold-deep);
 }
-.contact-list { display: grid; gap: 20px; }
-.contact-list li { list-style: none; display: grid; gap: 3px; }
+/* Detail cards rather than a flat stack: two per row fills the column's
+   width, which keeps this side roughly level with the action panel beside
+   it instead of running far below it. The email and the addresses are too
+   long for a half-width card, so they take the full row. */
+.contact-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  flex: 1;
+  align-content: start;
+}
+.contact-list li {
+  list-style: none;
+  display: grid;
+  gap: 4px;
+  align-content: start;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius-sm);
+}
+.contact-list li.ci-wide, .contact-list li:nth-last-child(-n+2) { grid-column: 1 / -1; }
 .ci-label {
-  font-size: .72rem;
+  font-size: .7rem;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--gold-deep);
 }
-.contact-list a { color: var(--teal); font-weight: 500; }
+.contact-list li > span:not(.ci-label) { line-height: 1.6; }
+.contact-list a { color: var(--teal); font-weight: 500; width: fit-content; }
 .contact-list a:hover { color: var(--gold-deep); }
 
+/* Flex column, contents centred as a block: the panel stretches to match the
+   detail cards beside it (rather than floating with dead space under it),
+   without leaving a hollow gap in its middle. */
 .contact-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: var(--teal-950);
   border-radius: var(--radius);
   border-top: 3px solid var(--gold);
   padding: clamp(28px, 3.5vw, 40px);
 }
-.contact-panel h3 { color: var(--on-dark); font-size: 1.25rem; }
+.contact-panel h3 { color: var(--on-dark); font-size: 1.3rem; }
 .contact-panel p  { color: var(--on-dark-soft); }
-.contact-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0 18px; }
-.contact-panel-note { font-size: .88rem; margin: 0; }
+.contact-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 20px; }
+.contact-panel-note {
+  font-size: .88rem;
+  margin: 0;
+  padding-top: 18px;
+  border-top: 1px solid rgba(242,245,244,.14);
+}
 .contact-panel-note a { color: var(--gold); font-weight: 600; }
 
 @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
-@media (max-width: 560px) { .contact-actions .btn { width: 100%; } }
+@media (max-width: 560px) {
+  .contact-actions .btn { width: 100%; }
+  .contact-list { grid-template-columns: 1fr; }
+  .contact-list li { grid-column: 1 / -1; }
+}
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--teal-950); color: var(--on-dark-soft); }
