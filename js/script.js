@@ -6,8 +6,11 @@
 (function () {
   "use strict";
 
-  var prefersReduced = window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // ?noanim forces the reduced-motion path — used for deterministic
+  // headless screenshots, since GSAP reveals otherwise race the capture.
+  var prefersReduced = (window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches) ||
+    /[?&]noanim\b/.test(window.location.search);
 
   var hasGSAP = typeof window.gsap !== "undefined";
   var hasST = hasGSAP && typeof window.ScrollTrigger !== "undefined";
@@ -147,22 +150,24 @@
     if (!hasST || prefersReduced) {
       animEls.forEach(function (el) { el.style.opacity = "1"; el.style.transform = "none"; });
       initParallaxFallback();
+      initImageReveals();
       return;
     }
 
     gsap.registerPlugin(ScrollTrigger);
 
     // Group [data-anim] elements by their nearest section for stagger.
-    /* Subtle, corporate reveals — small vertical offsets only.
-       (Side-slide presets intentionally map to fade-up.) */
+    /* Reveal presets. Directional variants are distinct again — the
+       2026 "everything is a small fade-up" flattening was reverted with
+       the construction rebuild. */
     var presets = {
-      "fade-up":    { from: { y: 26, opacity: 0 } },
-      "fade-right": { from: { y: 26, opacity: 0 } },
-      "fade-left":  { from: { y: 26, opacity: 0 } },
-      "hero-title": { from: { y: 30, opacity: 0 }, dur: 0.9 },
-      "hero-media": { from: { y: 26, opacity: 0 }, dur: 1.0 },
-      "card":       { from: { y: 28, opacity: 0 } },
-      "stat":       { from: { y: 20, opacity: 0 } }
+      "fade-up":    { from: { y: 40, opacity: 0 } },
+      "fade-right": { from: { x: -48, opacity: 0 } },
+      "fade-left":  { from: { x: 48, opacity: 0 } },
+      "hero-title": { from: { y: 48, opacity: 0 }, dur: 1.0 },
+      "hero-media": { from: { y: 40, opacity: 0, scale: 1.04 }, dur: 1.1 },
+      "card":       { from: { y: 44, opacity: 0 } },
+      "stat":       { from: { y: 24, opacity: 0 } }
     };
 
     // Set initial states
@@ -199,6 +204,7 @@
     });
 
     initParallax();
+    initImageReveals();
     // Recalculate once images have loaded (heights change).
     window.addEventListener("load", function () { ScrollTrigger.refresh(); });
   }
@@ -225,6 +231,26 @@
   function initParallaxFallback() {
     document.querySelectorAll("[data-parallax]").forEach(function (el) {
       el.style.transform = "none";
+    });
+  }
+
+  /* ---- Image curtain reveal ---- */
+  function initImageReveals() {
+    var els = document.querySelectorAll(".img-reveal");
+    if (!els.length) return;
+
+    if (!hasST || prefersReduced) {
+      els.forEach(function (el) { el.classList.add("is-in"); });
+      return;
+    }
+
+    els.forEach(function (el) {
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 85%",
+        once: true,
+        onEnter: function () { el.classList.add("is-in"); }
+      });
     });
   }
 
