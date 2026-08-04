@@ -153,30 +153,57 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
 /* ---------- Top utility bar ---------- */
-.topbar { background: var(--teal-deep); color: rgba(255, 255, 255, .72); font-size: .8rem; }
-.topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 8px; padding-bottom: 8px; }
+.topbar {
+  background: var(--teal-deep);
+  color: var(--on-dark-soft);
+  font-size: .8rem;
+  position: relative;
+  z-index: 60;
+}
+.topbar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-block: 9px;
+}
 .topbar p { margin: 0; }
-.topbar a { color: rgba(255, 255, 255, .88); }
+.topbar a { color: var(--on-dark-soft); }
 .topbar a:hover { color: var(--gold); }
 .topbar-contact span { margin: 0 6px; color: rgba(255, 255, 255, .35); }
+@media (max-width: 700px) { .topbar-note { display: none; } }
 
 /* ---------- Header / nav ---------- */
+/* Header sits over the hero photo, so it (and the nav it contains) stay
+   on-dark permanently: transparent while over the photo, solid teal-950
+   once scrolled. Nav rules below are direct on-dark styling rather than
+   a light-mode default layered under a .site-header override — the two
+   have equal or lower specificity than each other and would otherwise
+   fight over color depending on source order. */
 .site-header {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: 0; left: 0; right: 0;
   z-index: 50;
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
 }
-.site-header.scrolled { box-shadow: var(--shadow-sm); }
+.site-header.scrolled {
+  background: var(--teal-950);
+  border-bottom-color: rgba(242,245,244,.14);
+  box-shadow: var(--shadow-sm);
+}
 
 .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 74px; }
 
 .brand { display: flex; align-items: center; gap: 13px; min-width: 0; }
 .brand-logo { height: 48px; width: 48px; object-fit: cover; border-radius: 9px; flex: none; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.18; min-width: 0; }
-.brand-name { font-family: var(--font-display); font-weight: 700; color: var(--teal); font-size: 1.02rem; letter-spacing: -.01em; white-space: nowrap; }
-.brand-sub { font-size: .66rem; font-weight: 500; color: var(--gold-deep); letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; }
+.brand-name { font-family: var(--font-display); font-weight: 700; color: var(--on-dark); font-size: 1.02rem; letter-spacing: -.01em; white-space: nowrap; }
+.brand-sub { font-size: .66rem; font-weight: 500; color: var(--on-dark-soft); letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; }
 
 .primary-nav ul { display: flex; align-items: center; gap: 6px; list-style: none; }
 .primary-nav a {
@@ -184,13 +211,13 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
   padding: 9px 14px;
   font-size: .92rem;
   font-weight: 500;
-  color: var(--ink);
+  color: var(--on-dark);
   border-radius: var(--radius-sm);
   transition: color .2s, background .2s;
 }
-.primary-nav a:hover { color: var(--teal); background: var(--teal-tint); }
-.primary-nav a.nav-cta { background: var(--gold); color: var(--ink); font-weight: 600; padding: 11px 20px; margin-left: 10px; }
-.primary-nav a.nav-cta:hover { background: var(--gold-hover); color: var(--ink); }
+.primary-nav a:hover { color: var(--gold); }
+.primary-nav a.nav-cta { background: var(--gold); color: var(--teal-950); font-weight: 600; padding: 10px 20px; border-radius: var(--radius); }
+.primary-nav a.nav-cta:hover { background: var(--gold-hover); color: var(--teal-950); }
 
 /* Hamburger (hidden on desktop) */
 .nav-toggle { display: none; background: none; border: 0; padding: 10px; cursor: pointer; }
@@ -200,46 +227,71 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ---------- Hero ---------- */
-.hero { background: var(--bg); }
-.hero-inner {
+.hero {
+  min-height: min(92vh, 900px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: calc(var(--header-h) + 72px);
+}
+.hero-inner { padding-bottom: clamp(48px, 7vw, 96px); }
+.hero-copy { max-width: 780px; }
+.hero-copy h1 { margin-bottom: 22px; }
+.hero-lead {
+  font-size: clamp(1rem, 1.5vw, 1.13rem);
+  max-width: 640px;
+  color: var(--on-dark-soft);
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin: 32px 0 28px; }
+.hero-registrations {
+  font-size: .84rem;
+  letter-spacing: .03em;
+  color: var(--on-dark-soft);
+  margin: 0;
+}
+.hero-registrations strong { color: var(--gold); font-weight: 600; }
+
+/* Stat bar docked to the bottom of the hero */
+.hero-stats {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(242,245,244,.16);
+  background: rgba(6,26,30,.55);
+}
+.hero-stats-grid {
   display: grid;
-  grid-template-columns: 1.04fr .96fr;
-  gap: clamp(40px, 5vw, 72px);
-  align-items: center;
-  padding-top: clamp(56px, 7vw, 96px);
-  padding-bottom: clamp(56px, 7vw, 96px);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
 }
-.hero-lead { font-size: 1.08rem; max-width: 54ch; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin: 28px 0 26px; }
-.hero-registrations { font-size: .82rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 18px; margin: 0; max-width: 54ch; }
-.hero-registrations strong { color: var(--ink); font-weight: 600; }
-
-.hero-media { margin: 0; }
-.hero-media img {
-  width: 100%;
-  height: clamp(320px, 38vw, 460px);
-  object-fit: cover;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
+.stat { padding: 26px 20px; text-align: center; }
+.stat + .stat { box-shadow: -1px 0 0 rgba(242,245,244,.16); }
+.stat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
 }
-.hero-media figcaption {
-  font-size: .82rem;
-  color: var(--muted);
-  margin-top: 12px;
-  padding-left: 12px;
-  border-left: 2px solid var(--gold);
+.stat-label {
+  display: block;
+  margin-top: 8px;
+  font-size: .76rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--on-dark-soft);
 }
 
-/* ---------- Stats band ---------- */
-.stats { background: var(--teal); border-top: 3px solid var(--gold); color: #fff; padding: clamp(36px, 5vw, 56px) 0; }
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-.stat { display: flex; flex-direction: column; position: relative; }
-.stat:not(:last-child)::after {
-  content: ""; position: absolute; right: -12px; top: 15%; height: 70%; width: 1px;
-  background: rgba(255, 255, 255, .14);
+@media (max-width: 900px) {
+  .hero { min-height: 0; padding-top: calc(var(--header-h) + 48px); }
+  .hero-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(odd) { box-shadow: none; }
+  .stat:nth-child(n+3) { box-shadow: 0 -1px 0 rgba(242,245,244,.16); }
+  .stat:nth-child(4)   { box-shadow: 0 -1px 0 rgba(242,245,244,.16), -1px 0 0 rgba(242,245,244,.16); }
 }
-.stat-num { font-family: var(--font-display); font-size: clamp(1.9rem, 3.6vw, 2.7rem); font-weight: 700; color: #fff; line-height: 1.1; }
-.stat-label { font-size: .85rem; color: rgba(255, 255, 255, .66); margin-top: 8px; letter-spacing: .01em; }
+@media (max-width: 560px) {
+  .hero-actions .btn { width: 100%; }
+}
 
 /* ---------- About ---------- */
 .about { background: var(--surface); }
@@ -403,35 +455,32 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
   }
   .primary-nav.open { display: block; }
   .primary-nav ul { flex-direction: column; align-items: stretch; gap: 0; padding: 10px 16px 16px; }
-  .primary-nav a { display: block; padding: 13px 10px; font-size: 1rem; border-radius: var(--radius-sm); }
+  /* Dropdown panel itself stays light (var(--surface) below), so its
+     links need ink-on-light, not the header's permanent on-dark color. */
+  .primary-nav a { display: block; padding: 13px 10px; font-size: 1rem; color: var(--ink); border-radius: var(--radius-sm); }
+  .primary-nav a:hover { color: var(--teal); background: var(--teal-tint); }
   .primary-nav a.nav-cta { margin: 10px 0 0; text-align: center; }
 }
 
 @media (max-width: 860px) {
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-media img { height: 300px; }
   .about-grid { grid-template-columns: 1fr; }
   .about-media img { min-height: 0; height: 300px; }
   .contact-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
-  .topbar-note { display: none; }
   .topbar-inner { justify-content: center; }
   .brand-name { font-size: .92rem; }
   .brand-sub { display: none; }
   .cards-3 { grid-template-columns: 1fr; }
   .compliance-grid { grid-template-columns: 1fr; }
   .process-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 20px; }
-  .stat:nth-child(2)::after { display: none; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   .footer-bottom-inner { justify-content: center; text-align: center; }
   .client-logo { padding: 20px 32px; font-size: 1.1rem; }
 }
 
 @media (max-width: 380px) {
-  .hero-actions .btn { width: 100%; }
   .contact-actions .btn { width: 100%; }
 }
 
