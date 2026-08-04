@@ -1828,12 +1828,15 @@ The hero is capped at `min(92vh, 900px)` so tall-viewport captures work. Headles
 
 - [ ] **Step 8: Verify the file no longer contradicts the build**
 
+The historical note from Step 1 deliberately quotes the retired direction ("Archivo is retired", "no gradients", "gold used sparingly"), so a naive grep for those strings will match by design. Check instead that no line still *instructs* the old design or names a deleted file:
+
 ```bash
 cd "D:/client/Mahendar-Pvt"
-grep -n "Archivo\|Six service\|no gradients\|gold used sparingly\|img-contact" CLAUDE.md
+grep -n "Six service\|img-contact\|font-display.*Archivo" CLAUDE.md
+grep -n "Archivo" CLAUDE.md | grep -v "retired"
 ```
 
-Expected: no output, other than the historical note added in Step 1 which intentionally quotes the retired direction.
+Expected: no output from either command. Any hit is a live instruction toward the replaced design, not a historical note.
 
 - [ ] **Step 9: Commit**
 
