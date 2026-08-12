@@ -568,6 +568,13 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 }
 .contact-info { display: flex; flex-direction: column; }
 .contact-person { margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.contact-company {
+  font-size: .78rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin: 0 0 6px;
+}
 .contact-name {
   font-family: var(--font-display);
   font-size: 1.2rem;
