@@ -1,5 +1,5 @@
 /* ============================================================
-   Mahendra Facility Services — interactions
+   Mahendra Facility Services Pvt Ltd — interactions
    Lenis smooth scroll + GSAP ScrollTrigger animations.
    Vendored libs (no CDN). Degrades gracefully if libs absent.
    ============================================================ */
